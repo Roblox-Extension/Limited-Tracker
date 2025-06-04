@@ -1,0 +1,34 @@
+body{
+    background-color: hsl(0, 0%, 9%) ;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    width: 100%;
+}
+img{
+    border-radius: 50%;
+}
+.container{
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+footer{
+    text-align: center;
+    width: 100%;
+
+}
