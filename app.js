@@ -1,11 +1,52 @@
+
 const container = document.getElementById("container");
 const style = document.createElement("style");
 const __accept = "green";
 const __decline = "#de1010";
 const __1K = "#eb5d05";
 const __10k = "#9b13f0";
+const sortOption = document.createElement("ul");
+sortOption.id = "sort-Options"
+const SS_container = document.createElement("div");
+SS_container.id = "SS";
+let Sort_open = null;
 
+async function ss_Container() {
+    SS_container.innerHTML = `
+    <span id="sort-By"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="22.5" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3 96 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-301.7 32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-32 0zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32l160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-160 0zm0 128c-17.7 0-32 14.3-32 32s14.3 32 32 32l224 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-224 0z"/></svg></span>
+    <input type"text" placeholder=" Search " id="item_Search"></input>
+    <span></span>
+    `
+    
+container.append(SS_container)
+};
 
+async function Event_F_Sort() {
+    const sort_I = document.querySelector("svg");
+     sort_I.title = "Sort";
+     SS_container.append(sortOption);
+    sort_I.addEventListener("click", (e)=> {
+        if(!Sort_open){
+        Sort_open = true;
+        sortOption.classList.toggle("sortLI");
+        sortOption.classList.remove("hide")
+        console.log("Sorting", Sort_open);
+        sortOption.innerHTML = `
+        <li class="sortLI" id="lowestToHighestPrice">Lowest to Highest Price</li>
+         <li class="sortLI" id="lowestToHighestRap">Lowest to Highest RAP</li>
+          <li class="sortLI" id="highestTolowestRap">Highest to lowest RAP</li>
+          <li class="sortLI" id="highestTolowestPrice">Highest to lowest Price</li>
+          
+        `
+        }
+        else{
+            Sort_open = false;
+            sortOption.classList.toggle("hide")
+            console.log("Sorting", Sort_open);
+        }
+    });
+    
+}
 
 async function User_View_3rd_() {
     const UL = document.createElement("ul");
@@ -53,7 +94,7 @@ async function User_View_3rd_() {
             
             <img src="${Info.Image}" alt="Item image"></img>
             <div>
-           <a href="${Info.Link}" target="_blank"> <h3> ${Info.name}</h3> </a>
+           <a href="${Info.Link}" target="_blank"> <h3 class="name"> ${Info.name}</h3> </a>
            <h4 class="itemRAP">RAP: R$ ${Info.RAP}</h4>
            <h4 class="itemPrice">Price: R$ ${Info.LRP}</h4>
            <h4>Original price: ${Info.OGPrice || "N/A"}</h4>
@@ -91,7 +132,7 @@ async function User_View_3rd_() {
             const Dele = document.createElement("buton");
             Dele.id = "deleteTracker";
             Dele.innerHTML = `
-            <h1> 🗑 </h1>
+            <h1> <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg> </h1>
             `
             li.innerHTML += `
             <style>
@@ -151,7 +192,7 @@ async function Promo () {
         chrome.storage.local.get("Owns", data =>{
             const result = data.Owns;
             if(result){
-                Item.remove()
+                Item.remove();
             }
             else{
                 return;
@@ -160,6 +201,8 @@ async function Promo () {
      });
 }
 async function main() {
+    await ss_Container()
+    await Event_F_Sort();
     await run();
     await Promo();
     await User_View_3rd_();
